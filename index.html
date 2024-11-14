@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fitness Studio</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+    
+        body::-webkit-scrollbar{
+            display: none;
+        }
+    
+        .navtop{
+            background-color: black;
+            font-size: 17px;
+            top: 0;
+            left: 0;
+            position: fixed;
+            width: 100%;
+            height: 80px;
+            padding-left: 10px;
+            padding-right: 60px;
+            display: flex;
+            align-items: center;
+            z-index: 100;
+        }
+    
+        .navtop img{ 
+            padding-top: 15px;
+            padding-left: 49px;
+            height: 40px;
+            margin-right: 633px;
+        }
+    
+        .nav a{
+            position: relative;
+            text-decoration: none;
+            color: rgb(198, 152, 83);
+            padding: 20px 19px;
+            border-radius: 1px;
+            font-weight: 600;
+        }
+    
+        .custom-select {
+            position: relative;
+            display: inline-block;
+        }
+    
+        .select-trigger {
+            background-color: black;
+            color: rgb(198, 152, 83);
+            padding: 20px 19px;
+            border-radius: 1px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .select-trigger span{
+            position: relative;
+            bottom: -4px;
+        }
+    
+        .select-options {
+            display: none;
+            position: absolute;
+            background-color: black;
+            border-radius: 5px;
+            max-height: 150px;
+            width: 100%;
+            z-index: 1;
+        }
+    
+        .select-options a {
+            display: block;
+            color: rgb(198, 152, 83);
+            padding: 10px auto;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    
+        .custom-select.open .select-options {
+            display: block;
+        }
+    
+        .nav a:after{
+            position: absolute;
+            content : "";
+            background-color: rgb(232, 162, 57);
+            height: 3px;
+            width: 0;
+            left: 0;
+            top: 55px;
+            bottom: -10px;
+            transition: 0.3s;
+        }
+    
+        .nav a:hover{
+            color: white;
+        }
+    
+        .nav a:hover::after{
+            width: 100%;
+        }
+    
+        main{
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+    
+        .home{
+            height: 600px;
+            width: 50%;
+        }
+    
+        .home p{
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 90px;
+            color: aliceblue;
+            margin-top: 130px;
+            margin-left: 200px;
+            margin-bottom: 85px;
+        }
+    
+        .home a{
+            font-size: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            text-decoration: none;
+            margin-left: 440px;
+            position: relative;
+            padding: 10px;
+            color: rgb(232, 162, 57);
+        }
+    
+        .home a:after{
+            position: absolute;
+            content : "";
+            background-color: rgb(232, 162, 57);
+            height: 3px;
+            width: 0;
+            left: 0;
+            top: 45px;
+            bottom: -10px;
+            transition: 0.3s;
+        }
+    
+        .home a:hover{
+            color: aliceblue;
+        }
+    
+        .home a:hover::after{
+            width: 100%;
+        }
+    
+        .image{
+            height: 700px;
+            width: 700px;
+        }
+    
+        .image img{
+            height: 600px;
+            margin-top: 60px;
+        }
+    
+        @media screen and (max-width: 780px) {
+            .navtop{
+                padding-right: 10px;
+            }
+            .navtop img{ 
+                margin-right: -16px;
+                padding-right: 19px;
+            }
+            .nav{
+                flex-direction: column;
+                align-items: flex-start;
+
+            }
+            .nav a{
+                padding: 15px 10px;
+                margin-bottom: 10px;
+            }
+            .home{
+                position: relative;
+                top: 100px;
+                width: 100%;
+                text-align: center;
+            }
+            .home p{
+                font-size: 50px;
+                margin: 50px auto;
+            }
+            .home a{
+                font-size: 15px;
+                margin: 0 auto;
+            }
+            .image{
+                width: 100%;
+                text-align: center;
+            }
+            .image img{
+                margin-top: 30px;
+            }
+        }
+        
+        .about{
+            background-color: black;
+            padding-bottom: 100px;
+            padding-top: 130px;
+            text-align: center;
+        }
+    
+        .container {
+            text-align: center; 
+        }
+          
+        .horizontal-rule {
+            width: 40%; 
+            border-top: 2px solid rgb(232, 162, 57);
+            display: inline-block; 
+            vertical-align: middle; 
+        }
+          
+        .text {
+            display: inline-block; 
+            vertical-align: middle;
+            margin: 0 10px;
+            font-size: 30px; 
+            color: rgb(232, 162, 57);
+        }
+          
+        .about h2{
+            color: aliceblue;
+            font-size: 20px;
+            text-align: center;
+            padding-left: 200px;
+            padding-right: 200px;
+        }
+    
+        #trainer{
+            height: 700px;
+            width: 100%;
+            background-image: url("gymbg.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    
+        .heading{
+            padding-top: 70px;
+        }
+    
+        .heading h1{
+            color: rgb(232, 162, 57);
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            backdrop-filter: blur(100px);
+        }
+    
+        .p ul{
+            position: absolute;
+            display: flex;
+            list-style-type: none;
+            width: 100%;
+            overflow-y: hidden;
+        }
+
+        .p li{
+            padding: 25px;
+            margin: 30px;
+            color: aliceblue;
+            text-align: center;
+            border-radius: 10px;
+            backdrop-filter: blur(100px);
+        }
+
+        .p img{
+            height: 200px;
+            padding-bottom: 10px;
+        }
+
+        .p li:hover{
+            transform: scale(1.1);
+            transition: 0.s all linear; 
+        }
+    
+        .p ul::-webkit-scrollbar{
+            display: none;
+        }
+    
+        #contact{
+            position: relative;
+            background-color: #242323;
+            height: 550px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: auto;
+        }
+    
+        .info{
+            position: relative;
+            color: aliceblue;
+            padding: 10px;
+            align-items: center;
+            
+            display: flex;
+    
+            img{
+                margin-right: 20px;
+            }
+        }
+    
+        .icon{
+            text-align: center;
+            color: aliceblue;
+        }
+    
+        .icon ion-icon{
+            margin-top: 4px;
+            margin-right: 2px;
+            color: rgb(232, 162, 57);
+        }
+    
+        form{
+            background-color: #000;
+            color: aliceblue;
+            margin-right: 30px;
+            border-radius: 6px;
+            margin-left: 10px;
+            padding: 30px;
+            height: 500px;
+            width: 400px;
+        }
+    
+        form h2{
+            text-align: center;
+            padding-bottom: 30px;
+        }
+    
+        .form-group{
+            padding-bottom: 15px;
+        }
+    
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            color: aliceblue;
+            background: transparent;
+            transition: border-bottom-color 0.3s ease;
+        }
+    
+        label {
+            position: relative;
+            bottom: -5px;
+            background-color: #000;
+            left: 4px;
+            color: #fff;
+            pointer-events: none;
+            transition: .5s;
+            transform-origin: left top;
+        }
+    
+        button {
+            background: transparent;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 4px;
+            margin-left: 100px;
+            border-radius: 7px;
+            cursor: pointer;
+            border-color: aliceblue;
+            transition: background-color 0.3s ease;
+        }
+    
+        button:hover {
+            background-color: rgb(232, 162, 57);
+        }
+    
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navtop">
+        <div class="logo"><img src="logo1.png"></div>
+        <div class="nav">
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#trainer">Trainers</a>
+            <a href="facilities.html">Facilities</a>
+           
+
+            <div class="custom-select">
+                <div class="select-trigger" onclick="toggleDropdown()">Locations<span> <ion-icon name="caret-down-outline"></ion-icon></span></div>
+                <div class="select-options">
+                    <a class="option" href="loc_pune.html" onclick="selectOption('pune')">Pune</a>
+                    <a class="option" href="loc_mumbai.html" onclick="selectOption('mumbai')">Mumbai</a>
+                </div>
+            </div>
+
+            <a href="#contact">Contact Us</a>
+        </div>     
+    </div>
+
+    <main id="home">
+        <div class="home">
+            <p>Discover Your<br>Strength!</p>
+            <a href="project_f.html" target="_self">Get Started</a>
+        </div>
+        <div class="image">
+            <img src="img1.png">
+        </div>
+    </main>
+
+    <section class="about" id="about"> 
+        <div class="container">
+            <hr class="horizontal-rule">
+            <span class="text">About Us</span>
+            <hr class="horizontal-rule">
+          </div>
+        <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam dignissimos ab mollitia eligendi quod ex quisquam! Incidunt quis sapiente eum? Ea inventore beatae ratione corrupti ab nesciunt, nisi expedita. Aperiam, iusto excepturi! Atque nisi iste nostrum ea qui ex ipsa sequi dolore eaque tempore animi, natus a maxime beatae itaque repellat tempora adipisci laboriosam error expedita quisquam quos! Esse cum sint odit rem sunt recusandae illum perferendis, porro repellat inventore ea alias debitis dignissimos quam. Fuga quo aut facere, tempore pariatur velit nobis illum, totam debitis voluptatem adipisci molestias a magnam voluptatibus? Inventore dolorum, maxime temporibus a necessitatibus itaque reiciendis.</h2>
+    </section>
+
+    <section id="trainer">
+        <div class="p">
+            <div class="heading"><h1>Our Trainers</h1></div>
+            <ul>
+                <li><img src="trainer1.png"><h3>Cbum</h3></li>
+                <li><img src="trainer2.png"><h3>Ramon Dino</h3></li>
+                <li><img src="trainer3.png"><h3>Saket Gokhale</h3></li>
+                <li><img src="trainer4.png"><h3>Ronnie</h3></li>
+                <li><img src="trainer5.png"><h3>Arnold</h3></li>
+                <li><img src="trainer6.png"><h3>Hadi Choopan</h3></li>    
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="info">
+            <img src="logo.png"><br>
+        </div>
+        <div class="icon">
+            <ion-icon name="call-outline"></ion-icon> 9999911111<br>
+            <ion-icon name="mail-outline"></ion-icon> fitnesclub@gmail.com<br>
+            <ion-icon name="location-outline"></ion-icon> Fitness Club Hadapsar, Pune<br>
+            <ion-icon name="logo-instagram"></ion-icon>
+            <ion-icon name="logo-facebook"></ion-icon>
+        </div>
+
+        <form class="form">
+            <h2>Contact Us</h2>
+            <div class="form-group">
+                <label for="name">Name :</label>
+                <input type="text" id="name" name="name" required>
+                <div id="nameError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+                <div id="emailError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone :</label>
+                <input type="tel" id="phone" name="phone" required>
+                <div id="phoneError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="msg">Your Message :</label>
+                <input type="text" id="msg" name="msg" required>
+                <div id="msgError" class="error"></div>
+            </div>
+            <button type="submit" onclick="sendMsg()">Send Message</button>
+        </form>
+    </section>
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        function sendMsg() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var address = document.getElementById('msg').value;
+
+            document.querySelectorAll('.error').forEach(function (error) {
+                error.innerHTML = '';
+            });
+
+            var isValid = true;
+
+            if (name.trim() === '') {
+                document.getElementById('nameError').innerHTML = 'Please enter your name';
+                isValid = false;
+            }
+
+            if (email.trim() === '') {
+                document.getElementById('emailError').innerHTML = 'Please enter your email';
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                document.getElementById('emailError').innerHTML = 'Please enter a valid email address';
+                isValid = false;
+            }
+
+            if (phone.trim() === '') {
+                document.getElementById('phoneError').innerHTML = 'Please enter your phone number';
+                isValid = false;
+            } else if (!isValidPhone(phone)) {
+                document.getElementById('phoneError').innerHTML = 'Please enter a valid phone number';
+                isValid = false;
+            }
+
+            if (address.trim() === '') {
+                document.getElementById('msgError').innerHTML = 'Please enter your message';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function isValidEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function isValidPhone(phone) {
+            var phoneRegex = /^\d{10}$/;
+            return phoneRegex.test(phone);
+        }
+
+        function toggleDropdown() {
+            document.querySelector('.custom-select').classList.toggle('open');
+        }
+
+        function selectOption(option) {
+            console.log('Selected option:', option);
+            toggleDropdown();
+        }
+    </script>
+</body>
+</html>
